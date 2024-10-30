@@ -64,22 +64,22 @@
                     <h2 class="text-center">Feedback</h2>  
                     <p>Give your valuble feedback here.</p>     
                     <div class="form-group">
-                        <input type="text" id="txtname" class="form-control" name="name" placeholder="Name" required="required">
+                        <input type="text" id="txtname" class="form-control" name="name" placeholder="Name" required>
                     </div>   
                     <div class="form-group">
-                        <input type="email" id="txtemail" class="form-control" placeholder="Email" required="required">
+                        <input type="email" id="txtemail" class="form-control" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txt_feedback" class="form-control a1" name="feedback" placeholder="Give your Feedback here" required="required">
+                        <input type="text" id="txt_feedback" class="form-control a1" name="feedback" placeholder="Give your Feedback here" required>
                     </div> 
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" required="required"> I accept the <a href="">Terms</a> &amp;
+                            <input type="checkbox" id="termsCheckbox" required> I accept the <a href="">Terms</a> &amp;
                             <a href="">Privacy Policy</a>
                         </label>
                     </div>
                     <div class="form-group">
-                        <button type="submit" id="btnSubmit" onclick="alert('your feedback is successful')" class="btn btn-success btn-block">Submit Feedback</button>
+                        <button type="submit" id="btnSubmit" class="btn btn-success btn-block" disabled>Submit Feedback</button>
                     </div>
                 </form>
                 </div>
@@ -155,24 +155,46 @@
     <script src="js/jquery.min.js"></script>
     
     <script>
+
+    function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
       $(document).ready(function(){
+          // Function to check if all fields are filled and checkbox is checked
+          function checkForm() {
+                var allFilled = $('#txtname').val() && $('#txtemail').val() && $('#txt_feedback').val() && $('#termsCheckbox').is(':checked');
+                $('#btnSubmit').prop('disabled', !allFilled);
+            }
+
+            // Attach the checkForm function to keyup and change events for real-time validation
+            $('#txtname, #txtemail, #txt_feedback, #termsCheckbox').on('keyup change', checkForm);
+
+
                 $("#btnSubmit").click(function(){
+                   event.preventDefault()
+                    if (!isValidEmail($('#txtemail').val())) {
+                      alert("Please enter a valid email address.");
+                      return;
+                    }
                     var data = {};
                     data.name = $('#txtname').val();
                     data.email = $('#txtemail').val();
-                    data.feedback = $('#txt_feedback').val()
+                    data.feedback = $('#txt_feedback').val();
+                   
                     $.ajax({
                         type:"POST",
-                        url:"http://localhost:3000/customers",
-                        data:JSON.stringify(data),
+                        url:"http://localhost:3000/api/feedback",
+                        data: JSON.stringify(data),
                         contentType:"application/json; charset=utf-8",
                         dataType:"json",
                         success:function(d){
-                            alert('Successful Feedback');
+                            alert('Your Feedback is Success');
                             window.location.href = 'index.html';
                         },
                         error:function(jqxhr){
-                            alert('Invalid entries');
+                            console.log(jqxhr.responseJSON.message);
+                            alert(jqxhr.responseJSON.message);
                         }
                     });
                 });
