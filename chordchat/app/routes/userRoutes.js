@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
                 res.status(500).json({ message: 'Error registering user' });
                 return; // Stop further execution
             }
-            res.status(200).json({ message: 'Registration successful' });
+            res.status(200).json({ message: 'Registration successful', username: name });
         });
     });
 });
@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
             expiresIn: '1h', // token expires in 1 hour
         });
 
-        res.status(200).json({ message: 'Login successful', token });
+        res.status(200).json({ message: 'Login successful', token, username: user.username });
     });
 });
 
