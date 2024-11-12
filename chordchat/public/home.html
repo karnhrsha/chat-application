@@ -33,7 +33,7 @@
 							name="username"
 							id="username"
 							placeholder="Enter username"
-							required
+							disabled
 						/>
 					</div>
 
@@ -52,5 +52,12 @@
 				</form>
 			</main>
 		</div>
+		<script>
+			const storedUsername = localStorage.getItem('username');
+		
+			if (storedUsername) {
+				document.getElementById('username').value = storedUsername;
+			} 
+		</script>
 	</body>
 </html>

@@ -276,7 +276,6 @@
         }
         
         const data = await response.json();
-        localStorage.setItem('enrolledCourseIds', "");
 
         if (data.courses) {
             console.log("Courses:", data.courses);
@@ -284,8 +283,6 @@
                 document.getElementById("enrolledCourses").style.display = "block";
                 displayCourses(data.courses);
             }
-            const courseIds = data.courses.map(course => course.course_id);
-            localStorage.setItem('enrolledCourseIds', JSON.stringify(courseIds));
         } else {
             console.log(data.message || "No courses found for this user.");
         }

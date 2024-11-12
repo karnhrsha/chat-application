@@ -44,6 +44,17 @@ CREATE TABLE chat_logs (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS user_courses (
+    user_course_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
+    UNIQUE(user_id, course_id)  
+);
+
+
 CREATE TABLE profiles (
     profile_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -61,5 +72,20 @@ CREATE TABLE feedback (
 );
 
 
-
-
+INSERT INTO courses (course_name, description) 
+VALUES ('Full Stack Development', 'Full Stack Development');
+       
+       INSERT INTO courses (course_name, description) 
+VALUES ('AI/ML', 'AI/ML');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Data Science', 'Data Science');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Advanced Programming', 'Advanced Programming');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Big Data', 'Big Data');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('IOT', 'IOT');

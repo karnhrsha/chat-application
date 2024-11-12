@@ -64,10 +64,10 @@
                     <h2 class="text-center">Feedback</h2>  
                     <p>Give your valuble feedback here.</p>     
                     <div class="form-group">
-                        <input type="text" id="txtname" class="form-control" name="name" placeholder="Name" required>
+                        <input type="text" id="txtname" class="form-control" name="name" placeholder="Name" disabled>
                     </div>   
                     <div class="form-group">
-                        <input type="email" id="txtemail" class="form-control" placeholder="Email" required>
+                        <input type="email" id="txtemail" class="form-control" placeholder="Email" disabled>
                     </div>
                     <div class="form-group">
                         <input type="text" id="txt_feedback" class="form-control a1" name="feedback" placeholder="Give your Feedback here" required>
@@ -199,6 +199,16 @@
                     });
                 });
             });
+
+          
+    const storedUsername = localStorage.getItem('username');
+    const userEmail = localStorage.getItem('userEmail');
+    if (storedUsername) {
+        document.getElementById('txtname').value = storedUsername;
+    } 
+    if (userEmail) {
+        document.getElementById('txtemail').value = userEmail;
+    } 
     </script>
     </body>
 </html>
