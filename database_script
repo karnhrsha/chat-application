@@ -1,8 +1,6 @@
--- Create the database (if not already created)
 CREATE DATABASE IF NOT EXISTS course_management;
 USE course_management;
 
--- Table for users (students and admins)
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
@@ -12,7 +10,6 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table for courses
 CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL,
@@ -20,7 +17,6 @@ CREATE TABLE courses (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table for enrollments (tracks which users are enrolled in which courses)
 CREATE TABLE enrollments (
     enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -30,7 +26,6 @@ CREATE TABLE enrollments (
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
--- Table for chat rooms (one chat room per course)
 CREATE TABLE chat_rooms (
     chat_room_id INT AUTO_INCREMENT PRIMARY KEY,
     course_id INT NOT NULL,
@@ -39,7 +34,6 @@ CREATE TABLE chat_rooms (
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
--- Table for chat logs (messages within the chat room)
 CREATE TABLE chat_logs (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     chat_room_id INT NOT NULL,
@@ -50,7 +44,17 @@ CREATE TABLE chat_logs (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Table for user profiles
+CREATE TABLE IF NOT EXISTS user_courses (
+    user_course_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
+    UNIQUE(user_id, course_id)  
+);
+
+
 CREATE TABLE profiles (
     profile_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -59,35 +63,22 @@ CREATE TABLE profiles (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Insert sample data into users table
-INSERT INTO users (username, email, password, role) 
-VALUES ('John Doe', 'john@example.com', 'password123', 'student'),
-       ('Jane Admin', 'jane@example.com', 'adminpass456', 'admin');
 
--- Insert sample data into courses table
 INSERT INTO courses (course_name, description) 
-VALUES ('Introduction to Programming', 'Learn the basics of programming in Python.'),
-       ('Advanced JavaScript', 'Deep dive into JavaScript concepts and frameworks.');
-
--- Insert sample data into enrollments table
-INSERT INTO enrollments (user_id, course_id) 
-VALUES (1, 1),  -- John Doe enrolled in Introduction to Programming
-       (1, 2);  -- John Doe also enrolled in Advanced JavaScript
-
--- Insert sample data into chat rooms table
-INSERT INTO chat_rooms (course_id, chat_room_name) 
-VALUES (1, 'Intro to Programming Chat Room'),
-       (2, 'Advanced JavaScript Chat Room');
-
--- Insert sample data into chat logs table
-INSERT INTO chat_logs (chat_room_id, user_id, message) 
-VALUES (1, 1, 'Hello! I have a question about the first assignment.'),
-       (2, 1, 'Can someone explain closures in JavaScript?');
-
--- Insert sample data into profiles table
-INSERT INTO profiles (user_id, bio, profile_picture_url) 
-VALUES (1, 'Computer Science student passionate about coding.', 'https://example.com/john_profile.jpg'),
-       (2, 'Course admin and programming enthusiast.', 'https://example.com/jane_profile.jpg');
-
-
+VALUES ('Full Stack Development', 'Full Stack Development');
+       
+       INSERT INTO courses (course_name, description) 
+VALUES ('AI/ML', 'AI/ML');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Data Science', 'Data Science');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Advanced Programming', 'Advanced Programming');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('Big Data', 'Big Data');
+       
+              INSERT INTO courses (course_name, description) 
+VALUES ('IOT', 'IOT');
 

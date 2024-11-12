@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="main.html">Home </a>
+                      <a class="nav-link" href="index.html">Home </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#footer">Contact</a>
@@ -142,9 +142,11 @@
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
     }
-    function setUserLoggedIn(username) {
+    function setUserLoggedIn(username, userId, userEmail) {
         localStorage.setItem('userLoggedIn', 'true');
         localStorage.setItem('username', username);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('userEmail', userEmail);
         console.log("user logged in ..");
         // window.location.href = "main.html"; // Redirect to index.html after login/register
     }
@@ -177,9 +179,9 @@
                 dataType: "json",
                 success: function(d) {
                     console.log(d);
-                    // alert('Login Success');
-                    setUserLoggedIn(d.username);
-                    // window.location.href = 'resource.html';
+                    alert('Login Success');
+                    setUserLoggedIn(d.username, d.userId, d.userEmail);
+                    window.location.href = 'index.html';
                 },
                 error: function(jqxhr) {
                     console.error("Login Error:", jqxhr);
@@ -220,8 +222,8 @@
                 success: function(d) {
                     console.log(d);
                     alert('Registration Success');
-                    setUserLoggedIn(d.username);
-                    // window.location.href = 'resource.html';
+                    setUserLoggedIn(d.username, d.userId, d.userEmail);
+                    window.location.href = 'index.html';
                 },
                 error: function(jqxhr) {
                     console.log(jqxhr.responseJSON.message);
