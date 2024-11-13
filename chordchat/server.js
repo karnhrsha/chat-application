@@ -6,6 +6,8 @@ const formatMessage = require('./utils/messages');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./app/routes/userRoutes');  // Import user routes
+const feedbackRoute = require('./app/routes/feedbackRoute');
+const courseRoutes = require('./app/routes/courseRoutes');
 
 const {
   userJoin,
@@ -22,6 +24,9 @@ app.use(bodyparser.json());
 
 // Use the user routes
 app.use('/api', userRoutes);
+//feedback routes
+app.use('/api', feedbackRoute);
+app.use('/api', courseRoutes); 
 
 //Content-type : application/json
 

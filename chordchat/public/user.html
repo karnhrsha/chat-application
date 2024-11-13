@@ -26,12 +26,6 @@
                       <a class="nav-link" href="index.html">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#feedback" >Feedback</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link " href="home.html" >Start Using ChordChat</a>
-                      </li>
-                    <li class="nav-item">
                       <a class="nav-link" href="#footer">Contact</a>
                     </li>
                   </ul>
@@ -148,6 +142,14 @@
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
     }
+    function setUserLoggedIn(username, userId, userEmail) {
+        localStorage.setItem('userLoggedIn', 'true');
+        localStorage.setItem('username', username);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('userEmail', userEmail);
+        console.log("user logged in ..");
+        // window.location.href = "main.html"; // Redirect to index.html after login/register
+    }
 
     $(document).ready(function(){
         // Login Form Validation and Submission
@@ -176,8 +178,10 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(d) {
+                    console.log(d);
                     alert('Login Success');
-                    window.location.href = 'resource.html';
+                    setUserLoggedIn(d.username, d.userId, d.userEmail);
+                    window.location.href = 'index.html';
                 },
                 error: function(jqxhr) {
                     console.error("Login Error:", jqxhr);
@@ -216,8 +220,10 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(d) {
+                    console.log(d);
                     alert('Registration Success');
-                    window.location.href = 'resource.html';
+                    setUserLoggedIn(d.username, d.userId, d.userEmail);
+                    window.location.href = 'index.html';
                 },
                 error: function(jqxhr) {
                     console.log(jqxhr.responseJSON.message);

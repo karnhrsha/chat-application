@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
                 res.status(500).json({ message: 'Error registering user' });
                 return; // Stop further execution
             }
-            res.status(200).json({ message: 'Registration successful' });
+            res.status(200).json({ message: 'Registration successful', username: name, userId: results.insertId, userEmail: email});
         });
     });
 });
@@ -64,11 +64,12 @@ router.post('/login', (req, res) => {
         }
 
         // Generate JWT token on successful login
-        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+        const token = jwt.sign({ id: user.user_id, email: user.email }, JWT_SECRET, {
             expiresIn: '1h', // token expires in 1 hour
         });
+        console.log('userid==>', user.user_id);
 
-        res.status(200).json({ message: 'Login successful', token });
+        res.status(200).json({ message: 'Login successful', token, username: user.username, userId: user.user_id, userEmail: user.email});
     });
 });
 
