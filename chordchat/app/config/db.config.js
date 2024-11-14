@@ -10,8 +10,8 @@ const mysql = require('mysql2');
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',  
-    password: 'Navya@104',
-    database: 'cordchat',
+    password: 'Karan*18',
+    database: 'chodchat',
     port: '3306'
 });
 
