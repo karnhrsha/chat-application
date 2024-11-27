@@ -1,6 +1,6 @@
 // routes/userRoutes.js
 const express = require('express');
-const bcrypt = require('bcrypt'); // for hashing and comparing passwords
+const bcrypt = require('bcryptjs'); // for hashing and comparing passwords
 const jwt = require('jsonwebtoken'); // for creating authentication tokens
 const db = require('../config/db.config');  // Import the MySQL connection
 
