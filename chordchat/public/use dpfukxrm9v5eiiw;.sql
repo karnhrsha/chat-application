@@ -87,4 +87,4 @@ VALUES
 ('IOT', 'IOT');
 
 
-select * from feedback;
+select * from users;
