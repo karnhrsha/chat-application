@@ -75,7 +75,7 @@ router.post('/login', (req, res) => {
 
 module.exports = router; */
 const express = require('express');
-const bcrypt = require('bcrypt'); // for hashing and comparing passwords
+const bcrypt = require('bcryptjs'); // for hashing and comparing passwords
 const jwt = require('jsonwebtoken'); // for creating authentication tokens
 const sql = require('mssql'); // import mssql library
 const db = require('../config/db.config');  // Import the MSSQL connection
