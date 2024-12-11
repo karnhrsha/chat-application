@@ -26,6 +26,7 @@ module.exports = router; */
 
 const express = require('express');
 const poolPromise = require('../config/db.config'); // Import the MSSQL connection pool
+const sql = require('mssql'); // Import the mssql library
 
 const router = express.Router();
 
