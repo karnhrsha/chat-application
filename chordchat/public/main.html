@@ -269,7 +269,7 @@
 
    async function getCoursesByUserId(userId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/courses/${userId}`);
+        const response = await fetch(`https://chordchat-app-922a1c015e38.herokuapp.com/api/courses/${userId}`);
         
         if (!response.ok) {
             throw new Error(`Error: ${response.status} ${response.statusText}`);
